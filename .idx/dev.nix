@@ -1,7 +1,9 @@
-{ pkgs, ... }: {
-  channel = "stable-24.05";
+# dev.nix
+with import <nixpkgs> {};
 
-  packages = with pkgs; [
+mkShell {
+  # Packages to install in the shell
+  buildInputs = [
     unzip
     openssh
     git
@@ -12,11 +14,15 @@
     qemu
   ];
 
-  env = {
-    EDITOR = "nano";
-  };
+  # Environment variables
+  shellHook = ''
+    export EDITOR=nano
+  '';
 
+  # Optional: Workspace / IDE extensions placeholders
+  # These are just informational; nix-shell won't use them automatically
   idx = {
+    channel = "stable-24.05";
     extensions = [
       "Dart-Code.flutter"
       "Dart-Code.dart-code"
